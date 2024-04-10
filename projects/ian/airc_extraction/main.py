@@ -46,8 +46,10 @@ def main(args):
     # loop through the structured report, matching cases to appropriate
     for report in structured_report:
         # Will need to implement error handling logic here in the future once we get non-dummy data
-        # This extracts the
-        report_name = report[0x0040, 0xa730][0][0x0040, 0xa168][0][0x0008, 0x0104].value
+        # This extracts the name of the dicom report type
+        # 
+        # report_name = report[0x0040, 0xa730][0][0x0040, 0xa043][0][0x0008, 0x0104].value # this is from the example
+        report_name = report[0x0040, 0xa043][0].CodeMeaning
         match report_name:
             case 'AI-Rad CT Pulmonary Density':
                 pulmonary_data = extract_pulmonary(report)
